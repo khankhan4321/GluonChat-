@@ -1,0 +1,581 @@
+:root {
+    --primary-bg: #0A0F1E;
+    --secondary-bg: #0A0F1E;
+    --accent-color: #4A9EFF;
+    --text-primary: #E8EAED;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --user-msg-bg: #1E3A5F;
+    --ai-msg-bg: rgba(255, 255, 255, 0.03);
+    --error-color: #FF4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.chat-container {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+    scroll-behavior: smooth;
+}
+
+.welcome-message {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.welcome-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.copyright-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.message {
+    width: 100%;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease-in;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-message {
+    align-items: flex-end;
+}
+
+.ai-message {
+    align-items: flex-start;
+}
+
+.message-content {
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    background-color: var(--input-bg);
+    max-width: 85%;
+    word-break: break-word;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.user-message .message-content {
+    background-color: var(--user-msg-bg);
+}
+
+.ai-message .message-content {
+    background-color: var(--ai-msg-bg);
+}
+
+.input-container {
+    padding: 1rem;
+    background-color: var(--secondary-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    background-color: var(--input-bg);
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
+}
+
+#userInput {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1rem;
+    padding: 0.5rem;
+    outline: none;
+}
+
+#userInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.send-button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--accent-color);
+    transform: rotate(-45deg);
+}
+
+.send-button:disabled svg {
+    opacity: 0.5;
+}
+
+.error-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--error-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: none;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { transform: translate(-50%, 100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .chat-history {
+        padding: 1rem 0.5rem;
+    }
+    
+    .welcome-message {
+        padding: 1rem;
+    }
+
+    .welcome-title {
+        font-size: 1.25rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .input-container {
+        position: sticky;
+        bottom: 0;
+        padding: 0.75rem;
+        background-color: var(--primary-bg);
+    }
+
+    .input-wrapper {
+        padding: 0.4rem 0.75rem;
+        margin: 0 0.5rem;
+    }
+
+    #userInput {
+        font-size: 1rem;
+        padding: 0.4rem;
+    }
+
+    .media-button svg,
+    .send-button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .copy-button,
+    .resend-button {
+        width: 28px;
+        height: 28px;
+    }
+
+    .copy-button svg,
+    .resend-button svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .media-preview-container {
+        margin: 0.5rem;
+    }
+
+    .media-preview {
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    .error-toast {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+        max-width: 90%;
+        text-align: center;
+    }
+
+    .regenerate-button {
+        right: -25px;
+    }
+
+    .message-content {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .user-message .message-content {
+        padding: 0.4rem 0.75rem;
+    }
+
+    .button-group {
+        margin-top: 0.25rem;
+    }
+
+    .copy-button, .resend-button {
+        padding: 0.35rem;
+        width: 28px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .message-content {
+        max-width: 90%;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .user-message .message-content {
+        padding: 0.35rem 0.6rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .message-content {
+        max-width: 90%;
+        font-size: 0.9rem;
+    }
+
+    .input-wrapper {
+        padding: 0.3rem 0.5rem;
+    }
+
+    .media-button svg,
+    .send-button svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    .chat-container {
+        height: -webkit-fill-available;
+    }
+}
+
+/* Add loading animation */
+.typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--ai-msg-bg);
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.typing-indicator .dots {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.typing-indicator .dots span {
+    width: 4px;
+    height: 4px;
+    background-color: var(--text-secondary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+/* MathJax Styling */
+.MathJax {
+    font-size: 1.1em !important;
+    color: var(--text-primary) !important;
+}
+
+.message-content .MathJax {
+    margin: 0.5em 0;
+}
+
+.message-content .MJX-display {
+    margin: 1em 0 !important;
+    padding: 0.5em 0;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.math-preview {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.math-preview:empty {
+    display: none;
+}
+
+/* Markdown Styling */
+.message-content {
+    overflow-x: auto;
+}
+
+.message-content pre {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+.message-content code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+.message-content .math {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+/* Add styles for the response status */
+.response-status {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Update button group and button styling */
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.user-message .button-group {
+    justify-content: flex-end;
+}
+
+.ai-message .button-group {
+    justify-content: flex-start;
+}
+
+.copy-button, .resend-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    transition: background-color 0.2s;
+}
+
+.copy-button:hover, .resend-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.copy-button svg, .resend-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Remove old individual button styles */
+.copy-button {
+    margin-top: 0;
+}
+
+.resend-button {
+    /* Remove any specific styles as they're now shared with copy-button */
+}
+
+/* Add these styles for math equations */
+.message-content {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Block equations */
+.message-content mjx-container[display="block"] {
+    font-size: 1em;
+    padding: 1em;
+    margin: 1em 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Inline equations */
+.message-content mjx-container:not([display="block"]) {
+    font-size: 1.1em;
+    margin: 0 0.2em;
+    vertical-align: -0.15em;
+}
+
+/* Boxed equations */
+.message-content mjx-container[data-formula*="\\boxed"] {
+    padding: 0.5em 2em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Improve spacing around equations */
+.message-content p {
+    margin: 1em 0;
+    line-height: 1.8;
+}
+
+/* Replace voice button styles with media button styles */
+.media-button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.media-button svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--accent-color);
+}
+
+.media-button:hover {
+    opacity: 1;
+}
+
+/* Add styles for media preview */
+.media-preview-container {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.media-preview {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 0.25rem;
+}
+
+.file-name {
+    flex: 1;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.remove-media {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.remove-media:hover {
+    opacity: 1;
+}
+
+/* Add regenerate button to AI messages */
+.message.ai {
+    position: relative;
+}
+
+.regenerate-button {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+    display: none;
+}
+
+.message.ai:hover .regenerate-button {
+    display: block;
+}
+
+.regenerate-button svg {
+    width: 16px;
+    height: 16px;
+}
